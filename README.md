@@ -55,26 +55,45 @@ Nếu chỉ muốn xem nội dung của tập tin mà không sửa, xóa, hay th
 
 ##1.4 Soạn thảo vi.
 
+###1.4.1 Chèn kí tự
+
 - Chèn kí tự trên một dòng:
 
-| a<text> <ESC> |
-|---------------|
+| a kí_tự ESC |
+|-------------|
 
 - Chèn kí tự vào sau vị trí con trỏ
 
+| i kí_tự ESC |
+|-------------|
 
-
-###1.4.1 Chèn văn bản.
-
-###1.4.2 Di chuyển con trỏ trong tập tin.
 
 ###1.4.3 Xóa văn bản.
 
-###1.4.4 Thay thế văn bản.
+- Xóa 1 từ 
 
-###1.4.5 Xóa hoặc lặp lại tại lệnh.
+| dw |
+|----|
+         
+- Xóa 3 từ 
 
-###1.4.6 Xem trạng thái văn bản đang soạn thảo.
+| 3dw |
+|-----|
+         
+- Xóa dòng hiện hành 
 
-###1.4.7 Sao chép, di chuyển văn bản.
+| dd |
+|----|
+
+- Xóa 5 dòng 
+
+| 5dd |
+|-----|
+             
+- Xóa 1 kí tự 
+  
+| x |
+|---|
+  
+
 
