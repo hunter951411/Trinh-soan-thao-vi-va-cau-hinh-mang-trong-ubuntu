@@ -121,7 +121,7 @@ Nếu chỉ muốn xem nội dung của tập tin mà không sửa, xóa, hay th
 | 3yy  – copy 3 dòng liên tiếp |
 | u  – Undo lại thao tác trước đó |
 
-7. Thao tác trên tập tin
+###1.4.7 Thao tác trên tập tin
 
 | Thao tác trên tập tin |
 |-----------------------|
