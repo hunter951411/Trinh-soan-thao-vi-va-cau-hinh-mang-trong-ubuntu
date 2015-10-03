@@ -1,5 +1,5 @@
 # Trinh-soan-thao-vi-va-cau-hinh-mang-trong-ubuntu
-Trình soạn thảo vi và cấu hình mạng trong ubuntu
+
 
 #1. Trình soạn thảo vi trong linux.
 
