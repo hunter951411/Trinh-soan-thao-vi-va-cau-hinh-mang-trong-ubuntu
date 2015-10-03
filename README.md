@@ -137,100 +137,41 @@ Nếu chỉ muốn xem nội dung của tập tin mà không sửa, xóa, hay th
 
 #2 Cấu hình mạng trong ubuntu
 
-Sử dụng lệnh route để thiết lập đường đi
-• Xem đường đi hiện tại
-– route -n
-• Đặt cửa khẩu mặc định (default gateway)
-– route add default gw ip-getway {interface-name}
-– route add default gw 192.168.1.1 eth0
-Thực hành
-• Cấu hình tạm thời cho máy tính X
-– IP 172.16.19.100+X
-– Netmask: 255.255.255.0
-• Kiểm tra nối kết với máy tính kế bên Y
-– ping 172.16.19.100+Y
-• Kiểm tra nối kết với gateway 172.16.19.1
-– ping 172.16.19.1
-• Kiểm tra nối kết với Proxy 172.16.2.100
-– ping 172.16.2.100
-Thực hành
-• Thêm cửa khẩu mặc định 172.16.19.1
-– sudo route add default gw 172.16.19.1
-• Kiểm tra lại nối kết với DNS Server 172.16.1.2
-– Ping 172.16.1.2
-• Kiểm tra lại nối kết với Proxy 172.16.1.100
-– ping 172.16.1.100
+##2.1 Cấu hình ip tĩnh cho máy ubuntuserver
 
-Cấu hình IP tĩnh
-• Thông tin về cấu hình IP lưu trong file /etc/network/interfaces:
-# Cấu hình IP tĩnh cho giao diện eth0
-auto eth0
-iface eth0 inet static
-address 192.168.1.2
-netmask 255.255.255.1.0
-gateway 192.168.1.1
-• Khởi động lại dịch vụ mạng để lấy cấu hình mới
-– sudo /etc/init.d/networking restart
-Thực hành
-• Dùng phần mềm nano để biên soạn file
-/etc/network/interfaces
-– sudo nano /etc/network/interfaces
-• Bổ sung các thông tin sau:
-auto eth0
-iface eth0 inet static
-Address 172.16.19.100+X
-Netmask 255.255.255.0
-Gateway 172.16.19.1
+- Đầu tiên bạn dùng trình soạn thảo vi để mở tập tin /etc/network/interfaces
 
-Cấu hình IP động
-• Thông tin về cấu hình IP lưu trong file /etc/network/interfaces:
-# Cấu hình IP động cho giao diện eth0
-# Chỉ thay từ khóa static bằng dhcp
-auto eth0
-iface eth0 inet dhcp
+<img src="http://i.imgur.com/yEYQkYl.png">
 
-Tắt/mở giao diện mạng
-• Tắt giao diện eth0
-– sudo ifconfig eth0 down
-• Mở giao diện eth0
-– sudo Ifconfig eth0 up
-– Sẽ lấy lại cấu hình lưu trong /etc/network/interfaces
+- Ở đây mình đang để địa chỉ ip động, nhận DHCP, bạn chỉnh như hình dưới để có địa chỉ ip tĩnh:
 
-Xác định DNS server
-• Server phân giải tên miền (DNS server) cấu hình trong tập tin /etc/resolv.conf
-search domain1
-domain2
-nameserver dns-server-ip1
-nameserver dns-server-ip1
-• Nếu chỉ đưa tên máy tính sẽ lần lượt tự động gán thêm phần mở rộng domain1, donaim2 thành tên
-đầy đủ trước khi phân giải thành địa chỉ IP
+<img src="http://i.imgur.com/OaPb2L2.png">
 
-Thực hành (1)
-• Ping đến proxy với tên proxy.cit.ctu.edu.vn
-– ping proxy.cit.ctu.edu.vn
-• Ping đến DNS Server có địa chỉ 172.16.99.2
-• Cấu hình DNS server là 172.16.99.2
-– Mở file /etc/resolv.conf
-• sudo nano /etc/resolv.conf
-– Sửa đổi tập tin resolv.conf để chỉ chứa một dòng
-• nameserver 172.16.99.2
-• Ping đến proxy với tên proxy.cit.ctu.edu.vn
+- ở đây cần phải thêm vào:
+<ul>
+<li>address: địa chỉ ip mà bạn muốn cấu hình tĩnh.</li>
+<li>netmask: Chỉ số dải mạng con</li>
+<li>gateway: Cổng mà tất cả các host đi ra ngoài mạng internet</li>
+<li>network: Dải mạng</li>
+<li>broadcast: Địa chỉ ip quảng báo của toàn mạng</li>
+</ul>
 
-Thực hành (2)
-• Ping đến Proxy với tên không có domain
-– ping proxy
-• Thêm vào đầu file /etc/resolv.conf dòng sau
-– search cit.ctu.edu.vn
-• Ping đến Proxy với tên không có domain
-– ping proxy
+- Sau đó bạn cần lưu thông tin vừa cấu hình lại, và restart card mạng với câu lệnh:
 
+**/etc/init.d/networking restart**
 
+Để kiểm tra bạn thử ping đến google:
 
-Cấu hình Proxy
-• Đặc tả trong tập tin /etc/apt/apt.conf
-• Có chứng thực người dùng
-– Acquire::http::Proxy "http://user:pass@proxy-host:port/";
-– Acquire::ftp::Proxy "http://user:pass@proxy-host:port/";
-• Không chứng thực người dùng
-– Acquire::http::Proxy "http://proxy-host:port/";
-– Acquire::ftp::Proxy "http://proxy-host:port/";
+<img src="http://i.imgur.com/kpaBf38.png">
+
+##2.2 Cấu hình ip tĩnh tạm thời.
+
+- Cấu hình địa chỉ ip bạn sử dụng lệnh:
+
+**ifconfig eth0 192.168.221.221 netmask 255.255.255.0**
+
+- Tiếp theo, cấu hình default gateway bạn sử dụng lệnh:
+
+**route add default gw 192.168.221.2 eth0**
+
+- Tuy nhiên, khi bạn restart máy đi thì cấu hình lại bị reset lại/
